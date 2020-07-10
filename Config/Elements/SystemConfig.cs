@@ -9,8 +9,8 @@ namespace MrSharp.Config.Elements
         [JsonProperty("prefix")]
         public String Prefix { get; private set; }
         
-        [JsonProperty("listenToName")]
-        public String ListenToName { get; private set; }
+        [JsonProperty("name")]
+        public String Name { get; private set; }
         
     }
 }
