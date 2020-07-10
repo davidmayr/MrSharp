@@ -9,5 +9,8 @@ namespace MrSharp.Config.Elements
         [JsonProperty("token")]
         public String Token { get; private set; }
         
+        [JsonProperty("autoReconnect")]
+        public bool AutoReconnect { get; private set; }
+
     }
 }

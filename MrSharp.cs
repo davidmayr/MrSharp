@@ -31,7 +31,8 @@ namespace MrSharp
             DiscordConfiguration configuration = new DiscordConfiguration
             {
                 TokenType = TokenType.Bot,
-                Token = this.ConfigManager.BaseConfig.DiscordConfig.Token
+                Token = this.ConfigManager.BaseConfig.DiscordConfig.Token,
+                AutoReconnect = this.ConfigManager.BaseConfig.DiscordConfig.AutoReconnect
             };
 
             DiscordClient = new DiscordClient(configuration);

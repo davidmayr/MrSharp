@@ -1,6 +1,7 @@
 ﻿{
   "discord": {
-    "token": ""
+    "token": "",
+    "autoReconnect": true
   },
   "system": {
     "prefix": "!",
