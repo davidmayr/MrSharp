@@ -1,0 +1,9 @@
+﻿{
+  "discord": {
+    "token": ""
+  },
+  "system": {
+    "prefix": "!",
+    "listenToName": "MrSharp"
+  }
+}
