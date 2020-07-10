@@ -11,16 +11,16 @@ namespace MrSharp.Config
 
         public BaseConfig BaseConfig;
 
-        public async void load()
+        public void Load()
         {
-            String jsonConfig = String.Empty;
-            await using var stream = File.OpenRead("config.json");
-            using var streamReader = new StreamReader(stream, new UTF8Encoding(false));
             
-            jsonConfig = await streamReader.ReadToEndAsync().ConfigureAwait(false);
+            var json = string.Empty;
 
-            this.BaseConfig = JsonConvert.DeserializeObject<BaseConfig>(jsonConfig);
-
+            using (var fs = File.OpenRead("config.json"))
+            using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
+                json = sr.ReadToEnd();
+            
+            BaseConfig = JsonConvert.DeserializeObject<BaseConfig>(json);
         }
         
     }

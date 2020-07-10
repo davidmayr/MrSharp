@@ -16,23 +16,25 @@ namespace MrSharp
 {
     class MrSharp
     {
-        public DiscordClient DiscordClient { get; private set; }
+        private DiscordClient DiscordClient { get; set; }
 
-        public CommandsNextModule CommandsNextModule { get; private set;  }
-        
-        public ConfigManager ConfigManager { get; private set;  }
-        
-        public async void Start()
+        private CommandsNextModule CommandsNextModule { get; set;  }
+
+        private ConfigManager ConfigManager { get; set;  }
+
+        public MrSharp()
         {
-            
-            this.ConfigManager = new ConfigManager();
-            this.ConfigManager.load();
-            
+            ConfigManager = new ConfigManager();
+            ConfigManager.Load();
+        }
+
+        public async Task Run()
+        {
             DiscordConfiguration configuration = new DiscordConfiguration
             {
                 TokenType = TokenType.Bot,
-                Token = this.ConfigManager.BaseConfig.DiscordConfig.Token,
-                AutoReconnect = this.ConfigManager.BaseConfig.DiscordConfig.AutoReconnect,
+                Token = ConfigManager.BaseConfig.DiscordConfig.Token,
+                AutoReconnect = ConfigManager.BaseConfig.DiscordConfig.AutoReconnect,
                 LogLevel = LogLevel.Debug,
                 UseInternalLogHandler = true
             };
@@ -40,10 +42,9 @@ namespace MrSharp
             DiscordClient = new DiscordClient(configuration);
             DiscordClient.Ready += HandleReady;
             
-            
             CommandsNextConfiguration commandsConfiguration = new CommandsNextConfiguration
             {
-                StringPrefix = this.ConfigManager.BaseConfig.SystemConfig.Prefix,
+                StringPrefix = ConfigManager.BaseConfig.SystemConfig.Prefix,
                 EnableDms = false,
                 EnableMentionPrefix = true
             };
@@ -51,12 +52,12 @@ namespace MrSharp
             CommandsNextModule = DiscordClient.UseCommandsNext(commandsConfiguration);
             
             await DiscordClient.ConnectAsync();
-
+            await Task.Delay(-1);
         }
-
+        
         private Task HandleReady(ReadyEventArgs args)
         {
-            return null;
+            return Task.CompletedTask;
         }
     }
 }

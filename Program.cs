@@ -7,8 +7,8 @@ namespace MrSharp
         static void Main(string[] args)
         {
             Console.WriteLine("Hello MrSharp!");
-            MrSharp mrSharp = new MrSharp();
-            mrSharp.Start();
+            var mrSharp = new MrSharp();
+            mrSharp.Run().ConfigureAwait(false).GetAwaiter().GetResult();
         }
     }
 }
