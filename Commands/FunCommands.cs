@@ -25,25 +25,42 @@ namespace MrSharp.Commands
         [Description("Gives you a random cat 😍")]
         public async Task ExecuteCat(CommandContext ctx)
         {
-            using WebClient webClient = new WebClient();
-            var json = webClient.DownloadString("https://aws.random.cat/meow");
-            String url = JObject.Parse(json)["file"].ToString();
-
-            DiscordEmbedBuilder discordEmbedBuilder = new DiscordEmbedBuilder
+            await ctx.RespondAsync(embed: new DiscordEmbedBuilder
             {
                 Color = DiscordColor.Blue,
                 Title = "A Cat for you!",
-                ImageUrl = url,
+                ImageUrl = GeneratePetUrl("https://aws.random.cat/meow", "file"),
                 Footer = new DiscordEmbedBuilder.EmbedFooter
                 {
                     Text = "Powered by https://random.cat"
                 },
                 Timestamp = DateTimeOffset.Now
-            };
-
-            await ctx.RespondAsync(embed: discordEmbedBuilder);
+            });
         }
 
+        [Command("dog")]
+        [Description("Gives you a random dog 😍")]
+        public async Task ExecuteDog(CommandContext ctx)
+        {
+            await ctx.RespondAsync(embed: new DiscordEmbedBuilder
+            {
+                Color = DiscordColor.Blue,
+                Title = "A Dog for you!",
+                ImageUrl = GeneratePetUrl("https://random.dog/woof.json", "url"),
+                Footer = new DiscordEmbedBuilder.EmbedFooter
+                {
+                    Text = "Powered by https://random.dog"
+                },
+                Timestamp = DateTimeOffset.Now
+            });
+        }
+        
+        private String GeneratePetUrl(string jsonUrl, string jsonType)
+        {
+            using WebClient webClient = new WebClient();
+            var json = webClient.DownloadString(jsonUrl);
+            return JObject.Parse(json)[jsonType].ToString();
+        }
         
     }
 }
