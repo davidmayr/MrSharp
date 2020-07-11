@@ -1,15 +1,8 @@
 ﻿using DSharpPlus;
 using DSharpPlus.EventArgs;
-using DSharpPlus.CommandsNext.Attributes;
-using DSharpPlus.CommandsNext.Converters;
 using DSharpPlus.CommandsNext;
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
+using MrSharp.Commands;
 using MrSharp.Config;
 
 namespace MrSharp
@@ -46,10 +39,13 @@ namespace MrSharp
             {
                 StringPrefix = ConfigManager.BaseConfig.SystemConfig.Prefix,
                 EnableDms = false,
-                EnableMentionPrefix = true
+                EnableMentionPrefix = true,
+                CaseSensitive = false
             };
 
             CommandsNextModule = DiscordClient.UseCommandsNext(commandsConfiguration);
+
+            CommandsNextModule.RegisterCommands<FunCommands>();
             
             await DiscordClient.ConnectAsync();
             await Task.Delay(-1);
